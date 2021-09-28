@@ -23,7 +23,7 @@ jobs:
     - name: Get file version
       id: vars
       shell: pwsh
-      run: $file_path = "${{ github.workspace }}\test-application\bin\release\test-application.exe";
+      run: $file_path = "${{ github.workspace }}\test-application\test-application\bin\release\test-application.exe";
            $file_version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($file_path).FileVersion;
            echo "::set-output name=version::$file_version"
            echo ${{ steps.vars.outputs.version }}
