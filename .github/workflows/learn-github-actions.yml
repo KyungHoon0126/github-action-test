@@ -8,8 +8,8 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
-    # - name: Check out
-    #   uses: actions/checkout@v2
+    - name: Check out
+      uses: actions/checkout@v1
 
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v1.0.2
@@ -28,7 +28,7 @@ jobs:
            echo "::set-output name=version::$file_version"
            echo ${{ steps.vars.outputs.version }}
 
-    - uses: actions/checkout@v2 
+    - uses: actions/checkout@v1 
     - name: Bump version and push tag
       id: tag_version 
       uses: mathieudutour/github-tag-action@v5.5 
