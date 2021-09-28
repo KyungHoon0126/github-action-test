@@ -1,0 +1,26 @@
+name: learn-github-actions
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2
+
+    - name: Setup msbuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build
+      run: msbuild test-application.sln /p:Configuration=Release
+
+    - name: Get file version
+      id: vars
+      shell: pwsh
+      run: $file_path = "${{ github.workspace }}\test-application\bin\release\test-application.exe";
+           $file_version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($file_path).FileVersion;
+           echo "::set-output name=version::$file_version"
+           echo ${{ steps.vars.outputs.version }}
