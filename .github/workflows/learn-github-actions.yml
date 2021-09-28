@@ -6,13 +6,16 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+     runs-on: windows-latest
     steps:
     - name: Check out
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
 
     - name: Setup msbuild
       uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Restore Nuget packages
+      run: nuget restore test-application.sln
 
     - name: Build
       run: msbuild test-application.sln /p:Configuration=Release
